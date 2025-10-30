@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Inserimento Anagrafica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+ 
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Inserisci Anagrafica Utente</h1>
+
+  <form id="anagraficaForm">
+    <label>Nome: <input type="text" id="nome" required></label> <br>
+    <label>Cognome: <input type="text" id="cognome" required></label><br> 
+    <label>Indirizzo: <input type="text" id="indirizzo" required></label><br>
+    <label>Città: <input type="text" id="citta" required></label><br>
+    <label>CAP: <input type="text" id="cap" required></label><br>
+    <label>Data di nascita: <input type="date" id="dataNascita" required></label><br>
+
+
+<h2>The button Element</h2>
+
+<button type="button" onclick="generazione()">Click Me!</button>
+
+
+
+
+  </form>
+  <div id="risultato"></div>
+
+  <script>
+  function generazione() {
+    
+
+      const nome = document.getElementById('nome').value;
+      const cognome = document.getElementById('cognome').value;
+      const indirizzo = document.getElementById('indirizzo').value;
+      const citta = document.getElementById('citta').value;
+      const cap = document.getElementById('cap').value;
+      const dataNascita = new Date(document.getElementById('dataNascita').value);
+
+      const oggi = new Date();
+      let eta = oggi.getFullYear() - dataNascita.getFullYear();
+      const m = oggi.getMonth() - dataNascita.getMonth();
+      if (m < 0 || (m === 0 && oggi.getDate() < dataNascita.getDate())) {
+        eta--;
+      }
+
+      const annoNascita = dataNascita.getFullYear();
+      let generazione = '';
+
+      if (annoNascita >= 2013) {
+        generazione = 'Generazione Alpha';
+      } else if (annoNascita >= 1997) {
+        generazione = 'Generazione Z';
+      } else if (annoNascita >= 1981) {
+        generazione = 'Millennials';
+      } else if (annoNascita >= 1965) {
+        generazione = 'Generazione X';
+      } else if (annoNascita >= 1946) {
+        generazione = 'Baby Boomers';
+      } else if (annoNascita >= 1928) {
+        generazione = 'Generazione Silenziosa';
+      } else if (annoNascita >= 1901) {
+        generazione = 'Greatest Generation';
+      } else {
+        generazione = 'Non classificata';
+      }
+      alert(generazione)
+
+}
+</script>
+</body>
+</html>
+
