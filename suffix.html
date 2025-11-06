@@ -1,1 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcolatore Subnet Mask</title>
+<style>
+    body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+    h1 {
+        margin-bottom: 20px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .card {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-align: center;
+        width: 340px;
+    }
+    input {
+        width: 80px;
+        padding: 8px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        margin-right: 10px;
+    }
+    button {
+        background-color: #00c6ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: background 0.3s;
+    }
+    button:hover {
+        background-color: #0099cc;
+    }
+    .output {
+        margin-top: 20px;
+        font-family: monospace;
+        font-size: 18px;
+        background: rgba(0,0,0,0.3);
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .bit1 {
+        color: #00ff99;
+    }
+    .bit0 {
+        color: #ff5555;
+    }
+</style>
+</head>
+<body>
+
+<h1>Subnet Mask Generator</h1>
+<div class="card">
+    <p>Inserisci il prefix number (es. <strong>24</strong>):</p>
+    <input type="number" id="prefix" min="0" max="32" placeholder="0–32">
+    <button onclick="calcolaMask()">Genera</button>
+    <div class="output" id="output"></div>
+</div>
+
+<script>
+function calcolaMask() {
+    const prefix = parseInt(document.getElementById('prefix').value);
+    const outputDiv = document.getElementById('output');
+    if (isNaN(prefix) || prefix < 0 || prefix > 32) {
+        outputDiv.innerHTML = "❌ Inserisci un valore tra 0 e 32.";
+        return;
+    }
+    const fullOctets = Math.floor(prefix / 8);
+    const remainingBits = prefix % 8;
+    const octets = [];
+    for (let i = 0; i < 4; i++) {
+        let bits = "";
+        if (i < fullOctets) {
+            bits = "1".repeat(8);
+        } else if (i === fullOctets && remainingBits > 0) {
+            bits = "1".repeat(remainingBits) + "0".repeat(8 - remainingBits);
+        } else {
+            bits = "0".repeat(8);
+        }
+        octets.push(bits);
+    }
+    const binaryMask = octets.map(octet =>
+        octet.split('').map(b =>
+            `<span class="${b === '1' ? 'bit1' : 'bit0'}">${b}</span>`
+        ).join('')
+    ).join(' . ');
+    const decimalMask = octets.map(bin => parseInt(bin, 2)).join('.');
+    const hostBits = 32 - prefix;
+    let usableHosts;
+    if (hostBits === 0) {
+        usableHosts = 1;
+    } else if (hostBits === 1) {
+        usableHosts = 2;
+    } else {
+        usableHosts = Math.pow(2, hostBits) - 2;
+    }
+    outputDiv.innerHTML = `
+        <strong>/ ${prefix}</strong><br>
+        Maschera decimale: <strong>${decimalMask}</strong><br>
+        Suffix (bit host): <strong>${hostBits}<sup>bits</sup></strong><br>
+        Host utilizzabili: <strong>${usableHosts.toLocaleString()}</strong><br><br>
+        ${binaryMask}
+    `;
+}
+</script>
+
+</body>
+</html>
 
