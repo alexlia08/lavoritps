@@ -5,77 +5,205 @@
   <title>Inserimento Anagrafica</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
- 
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #f9fbe7);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      background: #fff;
+      margin: 40px auto;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    h2 {
+      color: #34495e;
+      border-bottom: 2px solid #f1c40f;
+      padding-bottom: 4px;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 6px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #2c80b4;
+    }
+
+    #risultato {
+      margin-top: 25px;
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #3498db;
+    }
+
+    p {
+      margin: 6px 0;
     }
   </style>
 </head>
 <body>
 
-  <h1>Inserisci Anagrafica Utente</h1>
+  <div class="container">
+    <h1>Inserisci Anagrafica Utente</h1>
 
-  <form id="anagraficaForm">
-    <label>Nome: <input type="text" id="nome" required></label> <br>
-    <label>Cognome: <input type="text" id="cognome" required></label><br> 
-    <label>Indirizzo: <input type="text" id="indirizzo" required></label><br>
-    <label>Città: <input type="text" id="citta" required></label><br>
-    <label>CAP: <input type="text" id="cap" required></label><br>
-    <label>Data di nascita: <input type="date" id="dataNascita" required></label><br>
+    <form id="anagraficaForm">
 
+      <label>Nome:
+        <input type="text" id="nome" required>
+      </label>
 
-<h2>The button Element</h2>
+      <label>Cognome:
+        <input type="text" id="cognome" required>
+      </label>
 
-<button type="button" onclick="generazione()">Click Me!</button>
+      <label>Indirizzo:
+        <input type="text" id="indirizzo" required>
+      </label>
 
+      <label>Città:
+        <input type="text" id="citta" required>
+      </label>
 
+      <label>CAP:
+        <input type="text" id="cap" required>
+      </label>
 
+      <label>Data di nascita (gg/mm/aaaa):
+        <input type="text" id="dataNascita" placeholder="es. 15/04/1998" required>
+      </label>
 
-  </form>
-  <div id="risultato"></div>
+      <h2>Sesso</h2>
+      <label><input type="radio" name="sesso" value="Maschio" required> Maschio</label>
+      <label><input type="radio" name="sesso" value="Femmina"> Femmina</label>
+      <label><input type="radio" name="sesso" value="Altro"> Altro</label>
+
+      <h2>Veicoli posseduti</h2>
+      <label><input type="checkbox" name="veicoli" value="Auto"> Auto</label>
+      <label><input type="checkbox" name="veicoli" value="Moto"> Moto</label>
+      <label><input type="checkbox" name="veicoli" value="Bicicletta"> Bicicletta</label>
+      <label><input type="checkbox" name="veicoli" value="Monopattino"> Monopattino</label>
+
+      <h2>Provincia</h2>
+      <label>
+        <select id="provincia" required>
+          <option value="">-- Seleziona Provincia --</option>
+          <option value="MI">Milano</option>
+          <option value="RM">Roma</option>
+          <option value="TO">Torino</option>
+          <option value="NA">Napoli</option>
+          <option value="FI">Firenze</option>
+          <option value="VE">Venezia</option>
+        </select>
+      </label>
+
+      <h2>Sport praticati</h2>
+      <label><input type="checkbox" name="sport" value="Calcio"> Calcio</label>
+      <label><input type="checkbox" name="sport" value="Basket"> Basket</label>
+      <label><input type="checkbox" name="sport" value="Pallavolo"> Pallavolo</label>
+      <label><input type="checkbox" name="sport" value="Tennis"> Tennis</label>
+      <label><input type="checkbox" name="sport" value="Biliardo"> Biliardo</label>
+      <label><input type="checkbox" name="sport" value="Nuoto"> Nuoto</label>
+      <label><input type="checkbox" name="sport" value="Ciclismo"> Ciclismo</label>
+      <label><input type="checkbox" name="sport" value="Atletica"> Atletica</label>
+
+      <button type="button" onclick="generazione()">Invia Dati</button>
+    </form>
+
+    <div id="risultato"></div>
+  </div>
 
   <script>
   function generazione() {
-    
-
-      const nome = document.getElementById('nome').value;
-      const cognome = document.getElementById('cognome').value;
-      const indirizzo = document.getElementById('indirizzo').value;
-      const citta = document.getElementById('citta').value;
-      const cap = document.getElementById('cap').value;
-      const dataNascita = new Date(document.getElementById('dataNascita').value);
+      const nome = document.getElementById('nome').value.trim();
+      const cognome = document.getElementById('cognome').value.trim();
+      const indirizzo = document.getElementById('indirizzo').value.trim();
+      const citta = document.getElementById('citta').value.trim();
+      const cap = document.getElementById('cap').value.trim();
+      const provincia = document.getElementById('provincia').value;
+      const sesso = document.querySelector('input[name="sesso"]:checked')?.value || 'Non specificato';
+      const veicoli = Array.from(document.querySelectorAll('input[name="veicoli"]:checked')).map(v => v.value).join(', ') || 'Nessuno';
+      const sport = Array.from(document.querySelectorAll('input[name="sport"]:checked')).map(s => s.value).join(', ') || 'Nessuno';
+      
+      const dataInput = document.getElementById('dataNascita').value.trim();
+      const parts = dataInput.split('/');
+      if (parts.length !== 3) {
+        alert("Inserisci la data nel formato corretto (gg/mm/aaaa)");
+        return;
+      }
+      const dataNascita = new Date(parts[2], parts[1] - 1, parts[0]);
 
       const oggi = new Date();
       let eta = oggi.getFullYear() - dataNascita.getFullYear();
       const m = oggi.getMonth() - dataNascita.getMonth();
-      if (m < 0 || (m === 0 && oggi.getDate() < dataNascita.getDate())) {
-        eta--;
-      }
+      if (m < 0 || (m === 0 && oggi.getDate() < dataNascita.getDate())) eta--;
 
       const annoNascita = dataNascita.getFullYear();
       let generazione = '';
+      if (annoNascita >= 2013) generazione = 'Generazione Alpha';
+      else if (annoNascita >= 1997) generazione = 'Generazione Z';
+      else if (annoNascita >= 1981) generazione = 'Millennials';
+      else if (annoNascita >= 1965) generazione = 'Generazione X';
+      else if (annoNascita >= 1946) generazione = 'Baby Boomers';
+      else if (annoNascita >= 1928) generazione = 'Generazione Silenziosa';
+      else if (annoNascita >= 1901) generazione = 'Greatest Generation';
+      else generazione = 'Non classificata';
 
-      if (annoNascita >= 2013) {
-        generazione = 'Generazione Alpha';
-      } else if (annoNascita >= 1997) {
-        generazione = 'Generazione Z';
-      } else if (annoNascita >= 1981) {
-        generazione = 'Millennials';
-      } else if (annoNascita >= 1965) {
-        generazione = 'Generazione X';
-      } else if (annoNascita >= 1946) {
-        generazione = 'Baby Boomers';
-      } else if (annoNascita >= 1928) {
-        generazione = 'Generazione Silenziosa';
-      } else if (annoNascita >= 1901) {
-        generazione = 'Greatest Generation';
-      } else {
-        generazione = 'Non classificata';
-      }
-      alert(generazione)
-
-}
-</script>
+      document.getElementById('risultato').innerHTML = `
+        <p><strong>Nome:</strong> ${nome}</p>
+        <p><strong>Cognome:</strong> ${cognome}</p>
+        <p><strong>Indirizzo:</strong> ${indirizzo}</p>
+        <p><strong>Città:</strong> ${citta}</p>
+        <p><strong>CAP:</strong> ${cap}</p>
+        <p><strong>Provincia:</strong> ${provincia}</p>
+        <p><strong>Sesso:</strong> ${sesso}</p>
+        <p><strong>Veicoli posseduti:</strong> ${veicoli}</p>
+        <p><strong>Sport praticati:</strong> ${sport}</p>
+        <p><strong>Età:</strong> ${eta}</p>
+        <p><strong>Generazione:</strong> ${generazione}</p>
+      `;
+  }
+  </script>
 </body>
 </html>
-
