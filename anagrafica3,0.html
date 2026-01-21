@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verifica JS</title>
+</head>
+<body>
+
+<input type="text" id="n1">
+<input type="text" id="n2">
+<input type="text" id="n3">
+<input type="text" id="n4">
+<button onclick="salva()">Salva</button>
+
+<table border="1">
+    <tr>
+        <th>Nome</th>
+    </tr>
+    <tbody id="out"></tbody>
+</table>
+
+<script>
+let nomi = []
+
+function salva() {
+    nomi = []
+
+    nomi.push({nome: n1.value})
+    nomi.push({nome: n2.value})
+    nomi.push({nome: n3.value})
+    nomi.push({nome: n4.value})
+
+    out.innerHTML = ""
+
+    for (let i = 0; i < nomi.length; i++) {
+        out.innerHTML += "<tr><td>" + nomi[i].nome + "</td></tr>"
+    }
+}
+</script>
+
+</body>
+</html>
