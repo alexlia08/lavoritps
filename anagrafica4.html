@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestione Dati Personali</title>
+</head>
+<body>
+  <h1>Gestione Dati Personali</h1>
+
+  <form id="formDati">
+    Nome: <input type="text" id="nome" required><br>
+    Cognome: <input type="text" id="cognome" required><br>
+    Età: <input type="number" id="eta" required><br>
+    CAP: <input type="text" id="cap" required><br>
+    Professione: <input type="text" id="professione" required><br>
+    Email: <input type="email" id="email" required><br>
+    <button type="submit">Salva</button>
+  </form>
+
+  <hr>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Età</th>
+        <th>CAP</th>
+        <th>Professione</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="tabellaDati"></tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById('formDati');
+    const tabella = document.getElementById('tabellaDati');
+    const elenco = JSON.parse(localStorage.getItem('elenco')) || [];
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const persona = {
+        nome: document.getElementById('nome').value,
+        cognome: document.getElementById('cognome').value,
+        eta: document.getElementById('eta').value,
+        cap: document.getElementById('cap').value,
+        professione: document.getElementById('professione').value,
+        email: document.getElementById('email').value
+      };
+
+      elenco.push(persona);
+      localStorage.setItem('elenco', JSON.stringify(elenco));
+      form.reset();
+      mostraDati();
+    });
+
+    function mostraDati() {
+      tabella.innerHTML = "";
+
+      elenco.forEach(p => {
+        const riga = document.createElement('tr');
+        riga.innerHTML = `
+          <td>${p.nome}</td>
+          <td>${p.cognome}</td>
+          <td>${p.eta}</td>
+          <td>${p.cap}</td>
+          <td>${p.professione}</td>
+          <td>${p.email}</td>
+        `;
+        tabella.appendChild(riga);
+      });
+    }
+
+    mostraDati();
+  </script>
+</body>
+</html>
