@@ -1,1 +1,45 @@
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
 
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #ffffff;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #e6e6e6;
+    font-weight: bold;
+}
+
+.empty-msg {
+    text-align: center;
+    padding: 15px;
+    color: #666;
+}
+
+.btn-back {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    text-decoration: underline;
+}
