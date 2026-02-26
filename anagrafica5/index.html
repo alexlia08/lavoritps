@@ -99,8 +99,8 @@ CAP:<br>
 <script>
 let elenco = [];
 
-let regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
-let regexCognome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+let regexNome = /^[\p{Script=Latin}\s]+$/u;
+let regexCognome = /^[\p{Script=Latin}\s]+$/u;
 let regexCap = /^[0-9]+$/;
 let regexEmail = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,6}$/;
 
