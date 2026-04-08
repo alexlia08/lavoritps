@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Lettore CSV</title>
 
+<style>
+body {
+font-family: Arial, sans-serif;
+background: #f5f5f5;
+margin: 0;
+padding: 30px;
+}
+
+h1 {
+text-align: center;
+}
+
+#box-caricamento {
+background: white;
+border: 1px solid #ccc;
+padding: 20px;
+margin: 20px auto;
+width: 400px;
+text-align: center;
+}
+
+#output {
+background: white;
+border: 1px solid #ccc;
+padding: 15px;
+width: 80%;
+margin: auto;
+height: 300px;
+overflow-y: auto;
+font-family: monospace;
+}
+
+input[type="file"] {
+margin-top: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<h1>Lettore file CSV</h1>
+
+<div id="box-caricamento">
+<h2>Scegli il file .csv</h2>
+<input type="file" id="fileInput" accept=".csv">
+</div>
+
+<pre id="output">Dopo che avrai scelto il file, qui apparirà il testo</pre>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const output = document.getElementById("output");
+
+fileInput.addEventListener("change", function () {
+const file = this.files[0];
+if (!file) return;
+
+const reader = new FileReader();
+
+reader.onload = function (e) {
+const testo = e.target.result;
+output.innerHTML = "";
+parseCSV(testo);
+};
+
+reader.readAsText(file);
+});
+
+function parseCSV(testo) {
+const righe = testo.split("\n");
+
+for (var i = 0; i < righe.length; i++) {
+output.innerHTML += righe[i] + "<br>";
+}
+}
+</script>
+
+</body>
+</html>
