@@ -39,7 +39,7 @@
     const tabella = document.getElementById('tabellaDati');
     const elenco = JSON.parse(localStorage.getItem('elenco')) || [];
 
-    form.addEventListener('submit', function(e) {
+    form.onsubmit = function(e) {
       e.preventDefault();
 
       const persona = {
