@@ -62,14 +62,13 @@
 
       elenco.forEach(p => {
         const riga = document.createElement('tr');
-        riga.innerHTML = `
+        riga.innerHTML = 
           "<td>" + p.nome+ "</td>" +
           "<td>" + p.cognome+ "</td>" +
           "<td>" + p.età+ "</td>" +
           "<td>" + p.cap+ "</td>" +
           "<td>" + p.professione+ "</td>" +
-          "<td>" + p.email+ "</td>" +
-        `;
+          "<td>" + p.email+ "</td>";
         tabella.appendChild(riga);
       });
     }
