@@ -63,12 +63,12 @@
       elenco.forEach(p => {
         const riga = document.createElement('tr');
         riga.innerHTML = `
-          "<h1>" + p.nome+ "</h1>" +
-          "<h1>" + p.cognome+ "</h1>" +
-          "<h1>" + p.età+ "</h1>" +
-          "<h1>" + p.cap+ "</h1>" +
-          "<h1>" + p.professione+ "</h1>" +
-          "<h1>" + p.email+ "</h1>" +
+          "<td>" + p.nome+ "</td>" +
+          "<td>" + p.cognome+ "</td>" +
+          "<td>" + p.età+ "</td>" +
+          "<td>" + p.cap+ "</td>" +
+          "<td>" + p.professione+ "</td>" +
+          "<td>" + p.email+ "</td>" +
         `;
         tabella.appendChild(riga);
       });
