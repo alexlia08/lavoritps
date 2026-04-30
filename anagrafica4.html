@@ -55,7 +55,7 @@
       localStorage.setItem('elenco', JSON.stringify(elenco));
       form.reset();
       mostraDati();
-    });
+    };
 
     function mostraDati() {
       tabella.innerHTML = "";
@@ -63,12 +63,12 @@
       elenco.forEach(p => {
         const riga = document.createElement('tr');
         riga.innerHTML = 
-          "<td>" + p.nome+ "</td>" +
-          "<td>" + p.cognome+ "</td>" +
-          "<td>" + p.età+ "</td>" +
-          "<td>" + p.cap+ "</td>" +
-          "<td>" + p.professione+ "</td>" +
-          "<td>" + p.email+ "</td>";
+          "<td>" + p.nome + "</td>" +
+          "<td>" + p.cognome + "</td>" +
+          "<td>" + p.eta + "</td>" +   // CORRETTO
+          "<td>" + p.cap + "</td>" +
+          "<td>" + p.professione + "</td>" +
+          "<td>" + p.email + "</td>";
         tabella.appendChild(riga);
       });
     }
