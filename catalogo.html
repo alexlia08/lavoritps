@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>catalogo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <h1>catalogo</h1>
+  <h2>prodotti</h2>
+  <div id = "prodotti" ></div>
+  <h2>dettaglio prodotto</h2>
+  <div id = "dettaglio" ></div>
+  <h2>carrello</h2>
+  <div id = "carrello" ></div>
+  <p>totale: <span id = "totale">0</span></p>
+  <button id = "acquista">acquista</button>
+  
+  
+ 
 
+ 
+  <script>
+    let prodotti = [];
+    let carrello = [];
+    window.onload = function () {
+      const testo = localStorage.getItem("csvdata");
+      if (!testo) {
+        alert("nessun csv trovato");
+        return;
+      }
+      prodotti = parseCSV(testo);
+      mostraprodotti(prodotti);
+      creacarrello();
+    };
+    function parseCSV (testo) {
+      const righe = testo.split("/n");
+      const intestazione = righe[0].split(",");
+      const dati = righe.slice(1);
+      return dati.map(riga => {
+        const colonne = riga.split(",");
+        return {
+          marca: colonne[0],
+          modello: colonne[1],
+          descrizione: colonne[2],
+          immagine: colonne[3],
+          prezzo: colonne[4],
+          
+        };
+      });
+    }
+  </script>
+</body>
+</html>
