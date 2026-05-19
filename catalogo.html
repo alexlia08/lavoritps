@@ -52,6 +52,8 @@
       }
       prodotti = parseCSV(testo);
       mostraprodotti(prodotti);
+      console.log("csv",testo);
+      console.log("prodotti",prodotti);
       document.getElementById("acquista").onclick = () => generapdf();
       mostracarrello();
     };
