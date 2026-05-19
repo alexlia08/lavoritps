@@ -9,11 +9,31 @@
 <body>
   <h1>catalogo</h1>
   <h2>prodotti</h2>
-  <div id = "prodotti" ></div>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>marca</th>
+        <th>modello</th>
+        <th>descrizione</th>
+        <th>immagine</th>
+        <th>prezzo</th>
+      </tr>
+    </thead>
+    <tbody id="tabellaprodotti"></tbody>
+  </table>
+
   <h2>dettaglio prodotto</h2>
   <div id = "dettaglio" ></div>
   <h2>carrello</h2>
-  <div id = "carrello" ></div>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>prodotto</th>
+        <th>prezzo</th>
+      </tr>
+    </thead>
+    <tbody id="tabellacarrello"></tbody>
+  </table>
   <p>totale: <span id = "totale">0</span></p>
   <button id = "acquista">acquista</button>
   
@@ -32,7 +52,8 @@
       }
       prodotti = parseCSV(testo);
       mostraprodotti(prodotti);
-      creacarrello();
+      document.getElementById("acquista").onclick = () => generapdf();
+      mostracarrello();
     };
     function parseCSV (testo) {
       const righe = testo.split("/n");
@@ -51,14 +72,111 @@
       });
     }
     function mostraprodotti(prodotti) {
-      const contenitore = document.getElementById("prodotti");
-      contenitore.innerHTML = "";
-      const tabella = document.createElement("table");
-      prodotti.forEach((prodotto,indice)=>{
-          
+      const tabella = document.getElementById("tabellaprodotti");
+      tabella.innerHTML = "";
+      prodotti.forEach(prodotto=>{
+        const riga = document.createElement("tr");
+        const marca = document.createElement("td");
+        marca.textContent = prodotto.marca;
+        const modello = document.createElement("td");
+        modello.textContent = prodotto.modello;
+        const descrizione = document.createElement("td");
+        descrizione.textContent = prodotto.descrizione;
+        const tdimmagine = document.createElement("td");
+        const img = document.createElement("img");
+        img.src = prodotto.immagine;
+        tdimmagine.appendChild(img);
+        const prezzo = document.createElement("td");
+        prezzo.textContent = prodotto.prezzo + "€";
+        const tddettagli = document.createElement("td");
+        const pulsantedettagli = document.createElement("button");
+        pulsantedettagli.textContent = "dettagli";
+        pulsantedettagli.onclick = ()=> mostradettagli(prodotto); 
+        tddettagli.appendChild(pulsantedettagli);
+        const tdcarrello = document.createElement("td");
+        const pulsantecarrello = document.createElement("button");
+        pulsantecarrello.textContent = "aggiungi al carrello";
+        pulsantecarrello.onclick = ()=> aggiungialcarrello(prodotto); 
+        tdcarrello.appendChild(pulsantecarrello);
+        riga.appendChild(marca);
+        riga.appendChild(modello);
+        riga.appendChild(descrizione);
+        riga.appendChild(tdimmagine);
+        riga.appendChild(prezzo);
+        riga.appendChild(tddettagli);
+        riga.appendChild(tdcarrello);
+        tabella.appendChild(riga);
+
         
       })
-
+    }
+    function mostradettagli(prodotto) {
+      const contenitore = document.getElementById("dettaglio");
+      contenitore.innerHTML = "";
+      const titolo = document.createElement("h3");
+      titolo.textContent = prodotto.marca + " " + prodotto.modello;
+      const img = document.createElement("img");
+      img.src = prodotto.immagine;
+      const descrizione = document.createElement("p");
+      descrizione.textContent = prodotto.descrizione;
+      const prezzo = document.createElement("p");
+      prezzo.textContent = "prezzo: " + prodotto.prezzo + "€";
+      contenitore.appendChild(titolo);
+      contenitore.appendChild(img);
+      contenitore.appendChild(descrizione);
+      contenitore.appendChild(prezzo);
+    }
+    function mostracarrello() {
+      const contenitore = document.getElementById("tabellacarrello");
+      contenitore.innerHTML = "";
+      let totale = 0;
+      carrello.forEach(prodotto => {
+        totale += prodotto.prezzo;
+        const riga = document.createElement("tr");
+        const tdprodotto = document.createElement("td");
+        tdprodotto.textContent = prodotto.marca + " " + prodotto.modello;
+        const tdprezzo = document.createElement("td");
+        tdprezzo.textContent = prodotto.prezzo + "€";
+        riga.appendChild(prodotto);
+        riga.appendChild(prezzo);
+        contenitore.appendChild(riga);
+      });
+      document.getElementById("totale").textContent = totale;
+    }
+    function aggiungialcarrello(prodotto) {
+      carrello.push(prodotto);
+      mostracarrello();
+    }
+    function generaPDF() {
+      if(cart.length === 0) {
+        alert("il carrello è vuoto");
+        return;
+      } 
+      const {jsPDF} = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      let y = 10;
+      doc.text("riepilogo ordine",10,y);
+      doc.setFontSize(12);
+      y += 10;
+      let totale = 0;
+      cart.forEach(prodotto => {
+        const riga = prodotto.marca + " " + prodotto.modello + " - " + prodotto.prezzo + "€";
+        doc.text(riga,10,y);
+        totale += prodotto.prezzo;
+        y += 8;
+      });
+      y += 5;
+      doc.text("totale: "+ totale + "€",10,y);
+      doc.save("ordine.pdf");
+      
+    
+    
+    
+    }
+    
+  
+    
 
     
   </script>
