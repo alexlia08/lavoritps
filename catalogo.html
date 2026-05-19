@@ -59,8 +59,11 @@
     };
     function parseCSV (testo) {
       const righe = testo.split("/n");
+      console.log("righe",righe);
       const intestazione = righe[0].split(",");
+      console.log("intestazione",intestazione);
       const dati = righe.slice(1);
+      console.log("dati",dati);
       return dati.map(riga => {
         const colonne = riga.split(",");
         return {
