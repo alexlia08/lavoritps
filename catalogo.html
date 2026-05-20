@@ -34,13 +34,9 @@
     </thead>
     <tbody id="tabellacarrello"></tbody>
   </table>
-  <p>totale: <span id = "totale">0</span></p>
+  <p>totale: <span id = "totale">0€</span></p>
   <button id = "acquista">acquista</button>
-  
-  
- 
 
- 
   <script>
     let prodotti = [];
     let carrello = [];
@@ -52,18 +48,13 @@
       }
       prodotti = parseCSV(testo);
       mostraprodotti(prodotti);
-      console.log("csv",testo);
-      console.log("prodotti",prodotti);
       document.getElementById("acquista").onclick = () => generapdf();
       mostracarrello();
     };
     function parseCSV (testo) {
       const righe = testo.split("\n");
-      console.log("righe",righe);
       const intestazione = righe[0].split(",");
-      console.log("intestazione",intestazione);
       const dati = righe.slice(1);
-      console.log("dati",dati);
       return dati.map(riga => {
         const colonne = riga.split(",");
         return {
@@ -71,8 +62,7 @@
           modello: colonne[1],
           descrizione: colonne[2],
           immagine: colonne[3],
-          prezzo: colonne[4],
-          
+          prezzo: parseFloat(colonne[4].replace(',', '.')) || 0,
         };
       });
     }
@@ -90,6 +80,7 @@
         const tdimmagine = document.createElement("td");
         const img = document.createElement("img");
         img.src = prodotto.immagine;
+        img.style.maxWidth = "80px";
         tdimmagine.appendChild(img);
         const prezzo = document.createElement("td");
         prezzo.textContent = prodotto.prezzo + "€";
@@ -110,9 +101,7 @@
         riga.appendChild(prezzo);
         riga.appendChild(tddettagli);
         riga.appendChild(tdcarrello);
-        tabella.appendChild(riga);
-
-        
+        tabella.appendChild(riga);        
       })
     }
     function mostradettagli(prodotto) {
@@ -122,6 +111,7 @@
       titolo.textContent = prodotto.marca + " " + prodotto.modello;
       const img = document.createElement("img");
       img.src = prodotto.immagine;
+      img.style.maxWidth = "200px";
       const descrizione = document.createElement("p");
       descrizione.textContent = prodotto.descrizione;
       const prezzo = document.createElement("p");
@@ -142,18 +132,18 @@
         tdprodotto.textContent = prodotto.marca + " " + prodotto.modello;
         const tdprezzo = document.createElement("td");
         tdprezzo.textContent = prodotto.prezzo + "€";
-        riga.appendChild(prodotto);
-        riga.appendChild(prezzo);
+        riga.appendChild(tdprodotto);
+        riga.appendChild(tdprezzo);
         contenitore.appendChild(riga);
       });
-      document.getElementById("totale").textContent = totale;
+      document.getElementById("totale").textContent = totale + "€";
     }
     function aggiungialcarrello(prodotto) {
       carrello.push(prodotto);
       mostracarrello();
     }
-    function generaPDF() {
-      if(cart.length === 0) {
+    function generapdf() {
+      if(carrello.length === 0) {
         alert("il carrello è vuoto");
         return;
       } 
@@ -165,7 +155,7 @@
       doc.setFontSize(12);
       y += 10;
       let totale = 0;
-      cart.forEach(prodotto => {
+      carrello.forEach(prodotto => {
         const riga = prodotto.marca + " " + prodotto.modello + " - " + prodotto.prezzo + "€";
         doc.text(riga,10,y);
         totale += prodotto.prezzo;
@@ -174,16 +164,8 @@
       y += 5;
       doc.text("totale: "+ totale + "€",10,y);
       doc.save("ordine.pdf");
-      
-    
-    
-    
     }
-    
-  
-    
-
-    
   </script>
 </body>
 </html>
+
