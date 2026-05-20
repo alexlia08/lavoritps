@@ -63,7 +63,7 @@
           modello: colonne[1],
           descrizione: colonne[2],
           immagine: colonne[3],
-          prezzo: parseFloat(colonne[4].replace(',', '.')) || 0,
+          prezzo: parseFloat((colonne[4] || '0').replace(',',',')) || 0,
         };
       });
     }
