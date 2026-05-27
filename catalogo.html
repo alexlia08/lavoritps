@@ -5,10 +5,161 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>catalogo</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f4f6f9;
+      padding:30px;
+      color:#333;
+    }
+
+    h1{
+      text-align:center;
+      margin-bottom:30px;
+      color:#222;
+      font-size:40px;
+    }
+
+    h2{
+      margin:30px 0 15px;
+      color:#444;
+      border-left:5px solid #4a90e2;
+      padding-left:10px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:white;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom:20px;
+    }
+
+    thead{
+      background:#4a90e2;
+      color:white;
+    }
+
+    th, td{
+      padding:14px;
+      text-align:center;
+    }
+
+    tbody tr{
+      border-bottom:1px solid #eee;
+      transition:0.2s;
+    }
+
+    tbody tr:hover{
+      background:#f0f7ff;
+    }
+
+    img{
+      border-radius:10px;
+      object-fit:cover;
+    }
+
+    button{
+      background:#4a90e2;
+      color:white;
+      border:none;
+      padding:10px 16px;
+      border-radius:8px;
+      cursor:pointer;
+      transition:0.2s;
+      font-weight:bold;
+    }
+
+    button:hover{
+      background:#357abd;
+      transform:scale(1.03);
+    }
+
+    #dettaglio{
+      background:white;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+      align-items:flex-start;
+    }
+
+    #dettaglio img{
+      max-width:220px;
+      border:1px solid #ddd;
+      padding:5px;
+      background:white;
+    }
+
+    #totale{
+      font-size:24px;
+      font-weight:bold;
+      color:#4a90e2;
+    }
+
+    p{
+      margin:15px 0;
+      font-size:18px;
+    }
+
+    #acquista{
+      margin-top:10px;
+      width:100%;
+      padding:14px;
+      font-size:18px;
+      background:#27ae60;
+    }
+
+    #acquista:hover{
+      background:#1f8a4d;
+    }
+
+    @media(max-width:768px){
+
+      body{
+        padding:15px;
+      }
+
+      table{
+        display:block;
+        overflow-x:auto;
+      }
+
+      h1{
+        font-size:30px;
+      }
+
+      th, td{
+        padding:10px;
+        font-size:14px;
+      }
+
+      button{
+        padding:8px 12px;
+        font-size:13px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
   <h1>catalogo</h1>
+
   <h2>prodotti</h2>
+
   <table border="1">
     <thead>
       <tr>
@@ -23,8 +174,10 @@
   </table>
 
   <h2>dettaglio prodotto</h2>
-  <div id = "dettaglio" ></div>
+  <div id="dettaglio"></div>
+
   <h2>carrello</h2>
+
   <table border="1">
     <thead>
       <tr>
@@ -34,8 +187,10 @@
     </thead>
     <tbody id="tabellacarrello"></tbody>
   </table>
-  <p>totale: <span id = "totale">0€</span></p>
-  <button id = "acquista">acquista</button>
+
+  <p>totale: <span id="totale">0€</span></p>
+
+  <button id="acquista">acquista</button>
 
   <script>
     let prodotti = [];
@@ -168,15 +323,4 @@
   </script>
 
 </body>
-</html> 
-
-
-
-
-
-
-
-
-      
-      
-
+</html>
