@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Grafico energia elettrica</title>
+</head>
+<body>
+
+<h2>Prezzo dell'energia elettrica</h2>
+
+<canvas id="grafico" width="1100" height="500"></canvas>
+
+<script>
+
+let canvas = document.getElementById("grafico");
+let disegno = canvas.getContext("2d");
+
+fetch("andamento_costo_energia_italia.json")
+.then(risposta => risposta.json())
+.then(dati => {
+
+let mesi = dati.andamento_mensile;
+
+disegno.beginPath();
+disegno.moveTo(50, 30);
+disegno.lineTo(50, 400);
+disegno.lineTo(1080, 400);
+disegno.stroke();
+
+for (let i = 0; i < mesi.length; i++) {
+
+let prezzo = mesi[i].valore_medio_pun;
+let nome = mesi[i].mese;
+let anno = mesi[i].anno;
+
+let altezza = prezzo * 1.5;
+let x = 60 + i * 50;
+let y = 400 - altezza;
+
+disegno.fillStyle = "blue";
+disegno.fillRect(x, y, 30, altezza);
+
+disegno.fillStyle = "black";
+disegno.fillText(prezzo, x, y - 5);
+disegno.fillText(nome.substring(0, 3) + " " + anno, x, 420);
+}
+
+});
+
+</script>
+
+</body>
+</html>
